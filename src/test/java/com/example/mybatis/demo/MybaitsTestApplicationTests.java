@@ -2,11 +2,13 @@ package com.example.mybatis.demo;
 
 import com.example.mybatis.demo.dao.UserDao;
 import com.example.mybatis.demo.entity.User;
+import com.example.mybatis.demo.test.config.ContextUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
@@ -15,8 +17,23 @@ import java.io.InputStream;
 @SpringBootTest
 class MybaitsTestApplicationTests {
 
+    @Autowired
+    private ContextUtil contextUtil;
+
     @Test
     void contextLoads() {
+
+
+    }
+
+    @Test
+    public void test2(){
+
+         User user= (User) contextUtil.getBean("user1");
+        System.out.println("user"+user.toString());
+        User user1= (User) contextUtil.getBean("user2");
+        System.out.println("user1"+user1.toString());
+        System.out.println(user1.equals(user));
     }
     @Test
     public void test1() throws IOException {
@@ -54,5 +71,10 @@ class MybaitsTestApplicationTests {
         } finally {
             sqlSession.close();
         }
+    }
+
+
+    public void getBean(){
+
     }
 }
